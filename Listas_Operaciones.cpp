@@ -19,6 +19,7 @@ void MENU (void);
 void INSERTAR_LISTA_ORDENADA (Nodo *&, int);
 void IMPRIMIR_LISTA (Nodo *);
 void IMPRIMIR_LISTA_DETALLE (Nodo *);
+void BUSCAR (Nodo *);
 
 // programa principal
 int main ()
@@ -45,6 +46,7 @@ void MENU ()
         cout << "1 - Insertar lista (ordenada)" << endl;
         cout << "2 - Imprimir lista (sin detalles)" << endl;
         cout << "3 - Imprimir lista (con detalles)" << endl;
+        cout << "4 - Buscar elemento en la lista" << endl;
         
         cin >> Opcion;
 
@@ -72,6 +74,10 @@ void MENU ()
 
             case 3:
 				IMPRIMIR_LISTA_DETALLE (lista);
+            break;
+
+            case 4:
+                BUSCAR (lista);
             break;
         
             default:
@@ -150,5 +156,35 @@ void IMPRIMIR_LISTA_DETALLE (Nodo *lista)
 
         i ++;
 	}
+}
+
+// procedimiento para buscar elemento
+void BUSCAR (Nodo *lista)
+{
+    // puntero
+    Nodo *Aux = lista;
+
+    // variables
+    int i, band, Dato_Buscar;
+
+    cout << "Ingrese el dato que desea buscar: " << endl;
+    cin >> Dato_Buscar;
+
+    i = 1;
+    band = 0;
+ 
+    while(Aux != NULL)
+    {
+        if(Aux->dato == Dato_Buscar)
+        {
+            cout << endl << " Encontrada en posicion " << i << endl;
+            band = 1;
+        }
+        Aux = Aux->siguiente;
+        i++;
+    }
+ 
+    if(band == 0)
+        cout<< "\n\n Numero no encontrado..!" << endl;
 }
 
