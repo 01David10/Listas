@@ -13,6 +13,7 @@ struct Nodo
 
 // parametrizacion
 void INSERTAR_LISTA (Nodo *&, int);
+void IMPRIMIR_LISTA (Nodo *);
 
 // programa principal
 int main ()
@@ -36,6 +37,8 @@ int main ()
 
         cout << "Desea agregar un nuevo elemento a la lista? ";
         cin >> Pregunta;
+
+        IMPRIMIR_LISTA (lista);
     } 
 
     getchar();
@@ -44,16 +47,16 @@ int main ()
 }
 
 // procedimiento para insertar un elemento a la lista (en orden)
-void INSERTAR_LISTA (Nodo *&lista, int n)
+void INSERTAR_LISTA (Nodo *&lista, int dato)
 {
     Nodo *nuevo_nodo = new Nodo();
 
-    nuevo_nodo->dato = n;
+    nuevo_nodo->dato = dato;
 
     Nodo *aux1 = lista;
     Nodo *aux2;
 
-    while (aux1 != NULL && aux1->dato < n)
+    while (aux1 != NULL && aux1->dato < dato)
     {
         aux2= aux1;
         aux1 = aux1->siguiente;
@@ -70,7 +73,20 @@ void INSERTAR_LISTA (Nodo *&lista, int n)
     
     nuevo_nodo->siguiente = aux1;
 
-    cout << "\t Elemento " << n << " insertado a la lista correctamente" << endl;
+    cout << "\t Elemento " << dato << " insertado a la lista correctamente" << endl;
 }
 
-// n es dato
+// procedimiento para imprimir la lista
+void IMPRIMIR_LISTA (Nodo *lista)
+{
+    int i = 1;
+ 
+    while(lista != NULL)
+    {
+        cout << "Elemento " << i <<": " << lista->dato << endl;
+
+        lista = lista->siguiente;
+
+        i++;
+    }
+}
