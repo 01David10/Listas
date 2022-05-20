@@ -11,6 +11,9 @@ struct Nodo
     Nodo *siguiente;
 };
 
+// cabecera
+Nodo *lista = NULL;     // creo que es la cabecera
+
 // parametrizacion
 void MENU (void);
 void INSERTAR_LISTA_ORDENADA (Nodo *&, int);
@@ -20,28 +23,7 @@ void IMPRIMIR_LISTA_DETALLE (Nodo *);
 // programa principal
 int main ()
 {
-    // variables
-    int dato;
-    string Pregunta;
-
-    // punteros
-    Nodo *lista = NULL;     // creo que es la cabecera
-
-    cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puede insertar varios al tiempo
-    cin >> Pregunta;
-
-    while (Pregunta == "si")
-    {
-        cout << "Digite un numero ";
-        cin >> dato;
-
-        INSERTAR_LISTA_ORDENADA (lista, dato);
-
-        cout << "Desea agregar un nuevo elemento a la lista? ";
-        cin >> Pregunta;
-    } 
-
-    IMPRIMIR_LISTA_DETALLE (lista);
+    MENU ();
 
     getchar();
     getchar();
@@ -52,28 +34,44 @@ int main ()
 void MENU ()
 {
      // variables
-    short Opcion;
+    short Opcion, dato;
+    string Pregunta;
+
     do
     {
         cout << "Menu de opciones" << endl;
         cout << "Por favor ingrese la opcion que desea: " << endl;
 
-        cout << "1 - Punto 1" << endl;
+        cout << "1 - Insertar lista (ordenada)" << endl;
+        cout << "2 - Imprimir lista (sin detalles)" << endl;
+        cout << "3 - Imprimir lista (con detalles)" << endl;
         
         cin >> Opcion;
 
         switch (Opcion)
         {
             case 1:
-				
+                cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puedo insertar varios elementos al tiempo
+                cin >> Pregunta;
+
+                while (Pregunta == "si")
+                {
+                    cout << "Digite un numero ";
+                    cin >> dato;
+
+                    INSERTAR_LISTA_ORDENADA (lista, dato);
+
+                    cout << "Desea agregar un nuevo elemento a la lista? ";
+                    cin >> Pregunta;
+                } 
             break;
 
             case 2:
-				
+				IMPRIMIR_LISTA (lista);
             break;
 
             case 3:
-				
+				IMPRIMIR_LISTA_DETALLE (lista);
             break;
         
             default:
@@ -153,5 +151,4 @@ void IMPRIMIR_LISTA_DETALLE (Nodo *lista)
         i ++;
 	}
 }
-
 
