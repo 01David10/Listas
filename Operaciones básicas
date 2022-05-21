@@ -1,0 +1,407 @@
+# include <iostream>
+# include <stdlib.h>
+# include <string>
+
+// operaciones basicas con listas simplemente ligadas
+
+using namespace std;
+
+// estructura nodo
+struct Nodo
+{
+    int dato;
+    Nodo *siguiente;
+};
+
+// cabecera
+Nodo *lista = NULL;     // creo que es la cabecera
+
+// parametrizacion
+void MENU (void);
+void INSERTAR_LISTA_ORDENADA (Nodo *&, int);
+void INSERTAR_FINAL (Nodo *&lista, int valor); // 
+void INSERTAR_INICIO (Nodo *&, int);
+void IMPRIMIR_LISTA (Nodo *);
+void IMPRIMIR_LISTA_DETALLE (Nodo *);
+void BUSCAR (Nodo *);
+void ELIMINAR (Nodo *&);
+void ELIMINAR_REPETIDOS (Nodo *&);
+void INSERTAR_ESPECIFICO (Nodo *&lista);
+
+// programa principal
+int main ()
+{
+    MENU ();
+
+    getchar();
+    getchar();
+    return 0;
+}
+
+// procedimiento para menu
+void MENU ()
+{
+     // variables
+    short Opcion, Dato;
+    string Pregunta;
+
+    do
+    {
+        cout << "Menu de opciones" << endl;
+        cout << "Por favor ingrese la opcion que desea: " << endl;
+
+        cout << "1 - Insertar elemento a la lista (ordenada)" << endl;
+        cout << "2 - Insertar elemento a la lista (al final)" << endl;
+        cout << "3 - Insertar elemento a la lista (al inicio)" << endl;
+        cout << "4 - Imprimir lista (sin detalles)" << endl;
+        cout << "5 - Imprimir lista (con detalles)" << endl;
+        cout << "6 - Buscar elemento en la lista" << endl;
+        cout << "7 - Eliminar elemento en la lista" << endl;
+        cout << "8 - Eliminar elemento repetido en la lista" << endl;
+        cout << "9 - Insertar elemento a la lista (posicion especifica)" << endl;
+        
+        cin >> Opcion;
+
+        switch (Opcion)
+        {
+            case 1:
+                cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puedo insertar varios elementos al tiempo
+                cin >> Pregunta;
+
+                while (Pregunta == "si")
+                {
+                    cout << "Digite un numero ";
+                    cin >> Dato;
+
+                    INSERTAR_LISTA_ORDENADA (lista, Dato);
+
+                    cout << "Desea agregar un nuevo elemento a la lista? ";
+                    cin >> Pregunta;
+                } 
+            break;
+
+            case 2:
+                cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puedo insertar varios elementos al tiempo
+                cin >> Pregunta;
+
+                while (Pregunta == "si")
+                {
+                    cout << "Digite un numero ";
+                    cin >> Dato;
+
+                    INSERTAR_FINAL (lista, Dato);
+
+                    cout << "Desea agregar un nuevo elemento a la lista? ";
+                    cin >> Pregunta;
+                }
+            break;
+
+            case 3:
+                cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puedo insertar varios elementos al tiempo
+                cin >> Pregunta;
+
+                while (Pregunta == "si")
+                {
+                    cout << "Digite un numero ";
+                    cin >> Dato;
+
+                    INSERTAR_INICIO (lista, Dato);
+
+                    cout << "Desea agregar un nuevo elemento a la lista? ";
+                    cin >> Pregunta;
+                }
+            break;
+
+            case 4:
+				IMPRIMIR_LISTA (lista);
+            break;
+
+            case 5:
+				IMPRIMIR_LISTA_DETALLE (lista);
+            break;
+
+            case 6:
+                BUSCAR (lista);
+            break;
+
+            case 7:
+                ELIMINAR (lista);
+            break;
+
+            case 8:
+                ELIMINAR_REPETIDOS (lista);
+            break;
+
+            case 9:
+                INSERTAR_ESPECIFICO (lista);
+            break;
+        
+            default:
+                exit (0);
+            break;
+        }
+    }
+    while (Opcion);
+}
+
+// procedimiento para insertar elemento (en orden)
+void INSERTAR_LISTA_ORDENADA (Nodo *&lista, int dato)
+{
+    // nodo
+    Nodo *nuevo_nodo, *aux1, *aux2;
+
+    // asigna el puntero
+    nuevo_nodo = new Nodo();
+
+    nuevo_nodo->dato = dato;
+
+    aux1 = lista;
+
+    // busca donde se debe insertar
+    while (aux1 != NULL && aux1->dato < dato)
+    {
+        aux2= aux1;
+        aux1 = aux1->siguiente;
+    }
+    
+    if (lista == aux1)
+    {
+        lista = nuevo_nodo;
+    }
+    else
+    {
+        aux2->siguiente = nuevo_nodo;
+    }
+    
+    nuevo_nodo->siguiente = aux1;
+}
+
+// procedimiento para insertar elemento (al final). Se imprimen en el orden en el que se ingresan
+void INSERTAR_FINAL (Nodo *&lista, int valor)
+{
+    Nodo *t, *q;
+    
+    q = (Nodo*)malloc(sizeof(Nodo));
+ 
+    q->dato = valor;
+    q->siguiente = NULL;
+ 
+    if (lista == NULL)
+    {
+        lista = q;
+    }
+    else
+    {
+        t = lista;
+        while(t->siguiente != NULL)
+        {
+            t = t->siguiente;
+        }
+        t->siguiente = q;
+    }
+}
+
+// procedimiento para insertar elemento (al inicio). LIFO (last in first out). Se imprimen en orden contrario al que se ingresan
+void INSERTAR_INICIO (Nodo *&lista, int Dato)
+{
+    // puntero
+    Nodo *Aux;
+
+    // asignar puntero
+    Aux = new Nodo ();
+    
+    Aux->dato = Dato;
+    Aux->siguiente = lista;
+    lista  = Aux;
+}
+
+// procedimiento para imprimir la lista
+void IMPRIMIR_LISTA (Nodo *lista)
+{
+    int i = 0;
+ 
+    while(lista != NULL)
+    {
+        cout << "Elemento " << i+1 <<": " << lista->dato << endl;
+
+        lista = lista->siguiente;
+
+        i++;
+    }
+}
+
+// procedimiento para imprimir la lista (con detalle)
+void IMPRIMIR_LISTA_DETALLE (Nodo *lista)
+{
+    // variables
+    short i;
+
+    // puntero
+    Nodo *Aux;
+
+	Aux = lista;
+    i = 1;
+
+	while(Aux != NULL)
+	{
+		cout << endl;
+        cout << "Posicion del elemento " << i << ": " << Aux << endl;
+		cout << "Dato del elemento " << i << ": " << Aux->dato << endl;
+		cout << "Hacia donde apunta el elemento " << i << ": " << Aux->siguiente << endl << endl;
+
+		Aux = Aux->siguiente;	
+
+        i ++;
+	}
+}
+
+// procedimiento para buscar elemento
+void BUSCAR (Nodo *lista)
+{
+    // puntero
+    Nodo *Aux = lista;
+
+    // variables
+    int i, band, Dato_Buscar;
+
+    cout << "Ingrese el dato que desea buscar: " << endl;
+    cin >> Dato_Buscar;
+
+    i = 1;
+    band = 0;
+ 
+    while(Aux != NULL)
+    {
+        if(Aux->dato == Dato_Buscar)
+        {
+            cout << endl << " Encontrada en posicion " << i << endl;
+            band = 1;
+        }
+        Aux = Aux->siguiente;
+        i++;
+    }
+ 
+    if(band == 0)
+        cout<< "\n\n Numero no encontrado..!" << endl;
+}
+
+// procedimiento para eliminar elemento
+void ELIMINAR (Nodo *&lista)
+{
+    // variables
+    int Dato;
+
+    // nodos
+    Nodo *Aux, *Anterior;
+
+    Aux = lista;
+
+    cout << "Ingrese el dato que desea eliminar ";
+    cin >> Dato; 
+ 
+    if (lista != NULL)
+    {
+        while (Aux != NULL)
+        {
+            if (Aux->dato == Dato)
+            {
+                if (Aux == lista)
+                    lista = lista->siguiente;
+                else
+                    Anterior->siguiente = Aux->siguiente;
+                delete (Aux);
+                return;
+            }
+            Anterior = Aux;
+            Aux = Aux->siguiente;
+        }
+    }
+    else
+    cout << " La lista esta vacia";
+}
+
+// procedimiento para eliminar elementos repetidos
+void ELIMINAR_REPETIDOS (Nodo *&lista)
+{
+    // punteros
+    Nodo *Aux, *Anterior;
+
+    // asignacion de punteros
+    Aux = lista;
+    Anterior = lista;
+
+    // variables
+    int Valor_Buscar;
+
+    cout << "Ingrese el elemento repetido que desea eliminar ";
+    cin >> Valor_Buscar;
+ 
+    while (Aux != NULL)
+    {
+        if (Aux->dato == Valor_Buscar)
+        {
+            if (Aux == lista) // primer elemento
+            {
+                lista = lista->siguiente;
+                delete (Aux);
+                Aux = lista;
+            }
+            else
+            {
+                Anterior->siguiente = Aux->siguiente;
+                delete (Aux);
+                Aux = Anterior->siguiente;
+            }
+        }
+        else
+        {
+            Anterior = Aux;
+            Aux = Aux->siguiente;
+        }
+    }
+    cout << "\n\nLos valores han sido eliminados" << endl;
+}
+
+// procedimiento para insertar elemento en una posicion especifica
+void INSERTAR_ESPECIFICO (Nodo *&lista)
+{
+    // punteros
+    Nodo *q, *t;
+
+    // asignacion de punteros
+    q = new Nodo ();
+
+    // variables
+    int Valor_Insertar, Posicion, i, Bandera, Opcion;
+
+    cout << "Ingrese el valor que desea insertar ";
+    cin >> Valor_Insertar;
+
+    q->dato = Valor_Insertar;
+
+    cout << "Ingrese la posicion donde desea insertar el valor ";
+    cin >> Posicion;
+ 
+    if (Posicion == 1)
+    {
+        q->siguiente = lista;
+        lista = q;
+    }
+    else
+    {
+        t = lista;
+ 
+        for (i=1; t != NULL; i++)
+        {
+            if (i == Posicion-1)
+            {
+                q->siguiente = t->siguiente;
+                t->siguiente = q;
+                return;
+            }
+            t = t->siguiente;
+        }
+    }
+    cout<< "Posicion no encontrada"<<endl;
+}
+
