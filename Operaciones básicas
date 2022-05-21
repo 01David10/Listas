@@ -9,7 +9,7 @@ using namespace std;
 // estructura nodo
 struct Nodo
 {
-    int dato;
+    int dato;		// numero entero
     Nodo *siguiente;
 };
 
