@@ -43,8 +43,7 @@ int main ()
 void MENU ()
 {
      // variables
-    short Opcion, Dato;
-    string Pregunta;
+    short Opcion, Dato, i, cant;
 
     do
     {
@@ -71,56 +70,47 @@ void MENU ()
         switch (Opcion)
         {
             case 1:
-                cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puedo insertar varios elementos al tiempo
-                cin >> Pregunta;
+                cout << "Cuantos elementos desea agregar? ";     
+                cin >> cant;
 
-                while (Pregunta == "si")
+                for (i=1;i<= cant; i++)     // asi puedo insertar varios elementos al tiempo
                 {
-                    cout << "Digite un numero ";
+                	cout << "Ingrese el elemento " << i << ": "; 
                     cin >> Dato;
-
-                    INSERTAR_FINAL (lista, Dato);
-
-                    cout << "Desea agregar un nuevo elemento a la lista? ";
-                    cin >> Pregunta;
-                } 
+					
+					INSERTAR_FINAL (lista, Dato);
+				}
 
                 getchar();
                 getchar();
             break;
 
             case 2:
-                cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puedo insertar varios elementos al tiempo
-                cin >> Pregunta;
+                cout << "Cuantos elementos desea agregar? ";     
+                cin >> cant;
 
-                while (Pregunta == "si")
+                for (i=1;i<= cant; i++)     
                 {
-                    cout << "Digite un numero ";
+                	cout << "Ingrese el elemento: " << i << ": ";
                     cin >> Dato;
 
-                    INSERTAR_INICIO (lista, Dato);
-
-                    cout << "Desea agregar un nuevo elemento a la lista? ";
-                    cin >> Pregunta;
-                }
+					INSERTAR_INICIO (lista, Dato);
+				}
 
                 getchar();
                 getchar();
             break;
 
             case 3:
-                cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puedo insertar varios elementos al tiempo
-                cin >> Pregunta;
+                cout << "Cuantos elementos desea agregar? ";     
+                cin >> cant;
 
-                while (Pregunta == "si")
+                for (i=1;i<= cant; i++)     
                 {
-                    cout << "Digite un numero ";
+                	cout << "Ingrese el elemento: " << i << ": ";
                     cin >> Dato;
 
-                    INSERTAR_ORDENADA (lista, Dato);
-
-                    cout << "Desea agregar un nuevo elemento a la lista? ";
-                    cin >> Pregunta;
+                	INSERTAR_ORDENADA (lista, Dato);
                 }
 
                 getchar();
@@ -315,7 +305,7 @@ void BUSCAR (Nodo *lista)
     // variables
     int i, band, Dato_Buscar;
 
-    cout << "Ingrese el dato que desea buscar: " << endl;
+    cout << "Ingrese el dato que desea buscar: ";
     cin >> Dato_Buscar;
 
     i = 1;
@@ -586,4 +576,5 @@ void INSERTAR_ESPECIFICO (Nodo *&lista)
     getchar();
     getchar();
 }
+
 
