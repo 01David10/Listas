@@ -1,43 +1,41 @@
+// operaciones simples con listas ligadas simples
+
 # include <iostream>
 # include <stdlib.h>
 # include <string>
 
 using namespace std;
 
-// operaciones basicas con listas simplemente ligadas
-
 // estructura nodo
 struct Nodo
 {
-    int dato;           // numero entero
+    int dato;           // suponiendo que sea un numero entero
     Nodo *siguiente;
 };
 
-// cabecera
-Nodo *lista = NULL;     // Lista principal (creo que es la cabeza)
+// nodo cabecera
+Nodo *lista = NULL;     
 
 // parametrizacion
 void MENU (void);
 void INSERTAR_ORDENADA (Nodo *&, int);
-void INSERTAR_FINAL (Nodo *&lista, int valor); // 
+void INSERTAR_FINAL (Nodo *&lista, int valor); 
 void INSERTAR_INICIO (Nodo *&, int);
 void IMPRIMIR (Nodo *);
 void IMPRIMIR_DETALLE (Nodo *);
 void BUSCAR (Nodo *);
 void ELIMINAR (Nodo *&);
 void ELIMINAR_REPETIDOS (Nodo *&);
-void INSERTAR_ESPECIFICO (Nodo *&lista);
 void ORDENAR_ASCENDENTE (Nodo *&);
 void ORDENAR_DESCENDENTE (Nodo *&);
 void LIBERAR (Nodo *&lista);
+void INSERTAR_ESPECIFICO (Nodo *&lista);
 
 // programa principal
 int main ()
 {
     MENU ();
 
-    getchar();
-    getchar();
     return 0;
 }
 
@@ -50,23 +48,25 @@ void MENU ()
 
     do
     {
-        cout << "Menu de opciones" << endl;
-        cout << "Por favor ingrese la opcion que desea: " << endl;
+        cout << "Menu de Listas simplemente ligadas" << endl << endl;
 
-        cout << "1 - Insertar elemento a la lista (ordenada)" << endl;
-        cout << "2 - Insertar elemento a la lista (al final)" << endl;
-        cout << "3 - Insertar elemento a la lista (al inicio)" << endl;
-        cout << "4 - Imprimir lista (sin detalles)" << endl;
-        cout << "5 - Imprimir lista (con detalles)" << endl;
-        cout << "6 - Buscar elemento en la lista" << endl;
-        cout << "7 - Eliminar elemento en la lista" << endl;
-        cout << "8 - Eliminar elemento repetido en la lista" << endl;
-        cout << "9 - Insertar elemento a la lista (posicion especifica)" << endl;
-        cout << "10 - Ordenar lista (ascendentemente)" << endl;
-        cout << "11 - Ordenar lista (descendentemente)" << endl;
-        cout << "12 - Liberar lista" << endl;
-        
+        cout << "1 - Insertar siempre al final" << endl;
+        cout << "2 - Insertar siempre al principio" << endl;
+        cout << "3 - Insertar ordenadamente" << endl;
+        cout << "4 - Insertar especifico" << endl;
+        cout << "5 - Borrar dato" << endl;
+        cout << "6 - Borrar dato repetidamente" << endl;
+        cout << "7 - Liberar lista" << endl;
+        cout << "8 - Mostrar lista" << endl;
+        cout << "9 - Mostrar lista con detalles" << endl;
+        cout << "10 - Buscar datos" << endl;
+        cout << "12 - Ordenar lista (ascendentemente)" << endl;
+        cout << "12 - Ordenar lista (descendentemente)" << endl;
+        cout << "0 - Salir" << endl << endl;
+
+        cout << "Por favor ingrese la opcion que desea: ";
         cin >> Opcion;
+        cout << endl;
 
         switch (Opcion)
         {
@@ -79,30 +79,17 @@ void MENU ()
                     cout << "Digite un numero ";
                     cin >> Dato;
 
-                    INSERTAR_ORDENADA (lista, Dato);
-
-                    cout << "Desea agregar un nuevo elemento a la lista? ";
-                    cin >> Pregunta;
-                } 
-            break;
-
-            case 2:
-                cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puedo insertar varios elementos al tiempo
-                cin >> Pregunta;
-
-                while (Pregunta == "si")
-                {
-                    cout << "Digite un numero ";
-                    cin >> Dato;
-
                     INSERTAR_FINAL (lista, Dato);
 
                     cout << "Desea agregar un nuevo elemento a la lista? ";
                     cin >> Pregunta;
-                }
+                } 
+
+                getchar();
+                getchar();
             break;
 
-            case 3:
+            case 2:
                 cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puedo insertar varios elementos al tiempo
                 cin >> Pregunta;
 
@@ -116,42 +103,68 @@ void MENU ()
                     cout << "Desea agregar un nuevo elemento a la lista? ";
                     cin >> Pregunta;
                 }
+
+                getchar();
+                getchar();
+            break;
+
+            case 3:
+                cout << "Desea agregar un nuevo elemento a la lista? ";     // asi puedo insertar varios elementos al tiempo
+                cin >> Pregunta;
+
+                while (Pregunta == "si")
+                {
+                    cout << "Digite un numero ";
+                    cin >> Dato;
+
+                    INSERTAR_ORDENADA (lista, Dato);
+
+                    cout << "Desea agregar un nuevo elemento a la lista? ";
+                    cin >> Pregunta;
+                }
+
+                getchar();
+                getchar();
             break;
 
             case 4:
-				IMPRIMIR (lista);
-            break;
-
-            case 5:
-				IMPRIMIR_DETALLE (lista);
-            break;
-
-            case 6:
-                BUSCAR (lista);
-            break;
-
-            case 7:
-                ELIMINAR (lista);
-            break;
-
-            case 8:
-                ELIMINAR_REPETIDOS (lista);
-            break;
-
-            case 9:
                 INSERTAR_ESPECIFICO (lista);
             break;
 
+            case 5:
+				ELIMINAR (lista);
+            break;
+
+            case 6:
+				ELIMINAR_REPETIDOS (lista);
+            break;
+
+            case 7:
+                LIBERAR (lista);
+            break;
+
+            case 8:
+                IMPRIMIR (lista);
+            break;
+
+            case 9:
+                IMPRIMIR_DETALLE (lista);
+            break;
+
             case 10:
-                ORDENAR_ASCENDENTE (lista);
+                BUSCAR (lista);
             break;
 
             case 11:
-                ORDENAR_DESCENDENTE (lista);
+                ORDENAR_ASCENDENTE (lista);
             break;
 
             case 12:
-                LIBERAR (lista);
+                ORDENAR_DESCENDENTE (lista);
+            break;
+
+            case 0:
+                exit (0);
             break;
         
             default:
@@ -166,60 +179,59 @@ void MENU ()
 void INSERTAR_ORDENADA (Nodo *&lista, int dato)
 {
     // nodo
-    Nodo *Aux;              // guarda los datos inicialmente
-    Nodo *Aux_2;            // compara los datos para luego ordenarlos
-    Nodo *Aux_3;            // nodo (posicion) donde se inserta el nuevo elemento
+    Nodo *Aux;              // guarda los datos ingresados
+    Nodo *Actual;           // compara los datos para luego ordenarlos. Tambien guarda el ultimo dato (cola) a partir del tercer elemento
+    Nodo *Anterior;         // nodo (posicion) donde se inserta el nuevo elemento
 
     // asigna el puntero
     Aux = new Nodo();
 
     Aux->dato = dato;
 
-    Aux_2 = lista;
+    Actual = lista;
 
-    // busca donde se debe insertar
-    while (Aux_2 != NULL && Aux_2->dato < dato)
+    // busca donde se debe insertar (se detiene en la posicion anterior al dato mayor)
+    while (Actual != NULL && Actual->dato < dato)
     {
-        Aux_3 = Aux_2;
-        Aux_2 = Aux_2->siguiente;
+        Anterior = Actual;              // iguala el anterior con el actual, pero luego el actual se adelante
+        Actual = Actual->siguiente;     // mueve el actual 1 posicion
     }
     
-    // ingresa el elemento
-    if (lista == Aux_2)
+    if (lista == Actual)    // primer elemento
     {
-        lista = Aux;
+        lista = Aux;        // cabecera apunta al primer elemento
     }
-    else
+    else    // del segundo elemento en adelante
     {
-        Aux_3->siguiente = Aux;
+        Anterior->siguiente = Aux;      // anterior conecta con Aux
     }
 
-    Aux->siguiente = Aux_2;
+    Aux->siguiente = Actual;  // Aux conecta con actual
 }
 
 // procedimiento para insertar elemento (al final). Se imprimen en el orden en el que se ingresan
 void INSERTAR_FINAL (Nodo *&lista, int valor)
 {
-    Nodo *Aux;      // acceden a algunos elementos
-    Nodo *Aux_2;    // acceden a algunos elementos
+    Nodo *Aux;      // guardara el ultimo dato (cola)
+    Nodo *Anterior;    // guarda los elementos del medio
     
     Aux = (Nodo*)malloc(sizeof(Nodo));
  
     Aux->dato = valor;
     Aux->siguiente = NULL;
  
-    if (lista == NULL)
+    if (lista == NULL)  // primer elemento
     {
-        lista = Aux;
+        lista = Aux;    
     }
     else
     {
-        Aux_2 = lista;
-        while (Aux_2->siguiente != NULL)
+        Anterior = lista;   // anterior apunta a la cabecera
+        while (Anterior->siguiente != NULL)    // a partir del tercer elemento. Se sigue iterando hasta que ubique el ultimo
         {
-            Aux_2 = Aux_2->siguiente;
+            Anterior = Anterior->siguiente;
         }
-        Aux_2->siguiente = Aux;
+        Anterior->siguiente = Aux;    // lo ubica antes de la cola
     }
 }
 
@@ -233,23 +245,34 @@ void INSERTAR_INICIO (Nodo *&lista, int Dato)
     Aux = new Nodo ();
     
     Aux->dato = Dato;
-    Aux->siguiente = lista;
-    lista  = Aux;
+    Aux->siguiente = lista;     // cuando se crea el primer elemento (ultimo en la lista), este siempre va quedar apuntando a NULL 
+    lista = Aux;    // la cabecera guardara el ultimo elemento que se ingrese (quedando siempre el ultimo al principio)
 }
 
 // procedimiento para imprimir la lista
 void IMPRIMIR (Nodo *lista)
 {
     int i = 1;
- 
-    while (lista != NULL)
+
+    if (lista != NULL)
     {
+        while (lista != NULL)
+        {
         cout << "Elemento " << i <<": " << lista->dato << endl;
 
         lista = lista->siguiente;
 
         i++;
+        }
     }
+
+    else
+    {
+        cout << "La lista esta vacia" << endl;
+    }
+
+    getchar();
+    getchar();
 }
 
 // procedimiento para imprimir la lista (con detalle)
@@ -260,17 +283,27 @@ void IMPRIMIR_DETALLE (Nodo *Lista)
 
     i = 1;
 
-	while(Lista != NULL)
-	{
-		cout << endl;
+	if (Lista != NULL)
+    {
+        while(Lista != NULL)
+	    {
         cout << "Posicion del elemento " << i << ": " << Lista << endl;
 		cout << "Dato del elemento " << i << ": " << Lista->dato << endl;
-		cout << "Hacia donde apunta el elemento " << i << ": " << Lista->siguiente << endl << endl;
+		cout << "Hacia donde apunta el elemento " << i << ": " << Lista->siguiente << endl;
 
 		Lista = Lista->siguiente;	
 
         i ++;
-	}
+	    }
+    }
+    
+    else
+    {
+        cout << "La lista esta vacia" << endl;
+    }
+
+    getchar();
+    getchar();
 }
 
 // procedimiento para buscar elemento
@@ -287,97 +320,221 @@ void BUSCAR (Nodo *lista)
 
     i = 1;
     band = 0;
- 
+
     while (Aux != NULL)
     {
         if(Aux->dato == Dato_Buscar)
         {
-            cout << endl << " Encontrada en posicion " << i << endl;
+            cout << "Encontrado en posicion " << i << endl;
             band = 1;
         }
         Aux = Aux->siguiente;
         i++;
     }
- 
+
     if(band == 0)
-        cout<< "\n\n Numero no encontrado..!" << endl;
+        cout<< "Numero no encontrado" << endl;
+
+    getchar();
+    getchar();
 }
 
 // procedimiento para eliminar elemento
 void ELIMINAR (Nodo *&lista)
 {
     // variables
-    int Dato;
+    int Dato; 
+    short Band;     // para ver si hay o no datos a eliminar
 
     // nodos
-    Nodo *Aux, *Anterior;
+    Nodo *Actual;       // posicion actual del recorrido
+    Nodo *Anterior;     // posicon anterior a actual
 
-    Aux = lista;
+    Band = 0;
+
+    Actual = lista;
 
     cout << "Ingrese el dato que desea eliminar ";
     cin >> Dato; 
  
     if (lista != NULL)
     {
-        while (Aux != NULL)
+        while (Actual != NULL)
         {
-            if (Aux->dato == Dato)
+            if (Actual->dato == Dato)    // posicion del dato a eliminar
             {
-                if (Aux == lista)
-                    lista = lista->siguiente;
+                Band = 1;
+                
+                if (Actual == lista)    // si el elemento a eliminar es el primero
+                    lista = lista->siguiente;   // mueve la cabecera 1 posicion
                 else
-                    Anterior->siguiente = Aux->siguiente;
-                delete (Aux);
-                return;
+                    Anterior->siguiente = Actual->siguiente;    // conecta anterior con el nodo proximo al que se va a eliminar (para no perder la conexion)
+
+                delete (Actual);
+
+                cout << "El dato ha sido eliminado" << endl;
+
+                getchar();
+                getchar();
+
+                return;     // para que se salga de la funcion porque ya encontró el dato
             }
-            Anterior = Aux;
-            Aux = Aux->siguiente;
+            else
+            {
+                Band = 0;
+            }                
+            Anterior = Actual;     // anterior se iguala a aux pero no aumenta, por lo que queda 1 posicion atras
+            Actual = Actual->siguiente;   // aux aumenta 1 posicion
         }
+
+        if (Band == 0)
+            cout << "El dato a eliminar no fue encontrado";
     }
     else
-    cout << " La lista esta vacia";
+    cout << "La lista esta vacia" << endl;
+
+    getchar();
+    getchar();
 }
 
 // procedimiento para eliminar elementos repetidos
 void ELIMINAR_REPETIDOS (Nodo *&lista)
 {
     // punteros
-    Nodo *Aux, *Anterior;
+    Nodo *Actual;       // posicion actual del recorrido*
+    Nodo *Anterior;     // posicion anterior a actual*
 
     // asignacion de punteros
-    Aux = lista;
+    Actual = lista;
     Anterior = lista;
 
     // variables
-    int Valor_Buscar;
+    int Valor_Buscar, Bandera = 0;
 
     cout << "Ingrese el elemento repetido que desea eliminar ";
     cin >> Valor_Buscar;
  
-    while (Aux != NULL)
+    while (Actual != NULL)
     {
-        if (Aux->dato == Valor_Buscar)
+        if (Actual->dato == Valor_Buscar)   // posicion del valor a eliminar
         {
-            if (Aux == lista) // primer elemento
+            if (Actual == lista) // primer elemento
             {
-                lista = lista->siguiente;
-                delete (Aux);
-                Aux = lista;
+                lista = lista->siguiente;   // la cabecera se mueve 1 posicion
+                delete (Actual);      // borra el elemento
+                Actual = lista;       // actual apunta a la cabecera
+
+                Bandera = 1;
             }
-            else
+            else    // segundo elemento en adelante
             {
-                Anterior->siguiente = Aux->siguiente;
-                delete (Aux);
-                Aux = Anterior->siguiente;
+                Anterior->siguiente = Actual->siguiente;    // conecta anterior con el nodo proximo al que se va a eliminar, para no perder la conexion
+                delete (Actual);
+                Actual = Anterior->siguiente;               // reubica actual
+
+                Bandera = 1;
             }
         }
-        else
+        else    // 
         {
-            Anterior = Aux;
-            Aux = Aux->siguiente;
+            Anterior = Actual;              // ubica al anterior
+            Actual = Actual->siguiente;     // actual se adelanta 1 posicion
         }
     }
-    cout << "\n\nLos valores han sido eliminados" << endl;
+    if (Bandera == 1)
+    {
+        cout << "Los valores han sido eliminados" << endl;
+    }
+    else
+        cout << "El valor a eliminar no fue encontrado" << endl;
+
+    getchar();
+    getchar();
+}
+
+// procedimiento para ordenar (ascendentemente)
+void ORDENAR_ASCENDENTE (Nodo *&lista)
+{
+    Nodo *actual;       // compara el dato en la posicion actual
+    Nodo *siguiente;    // compara el dato en la posicion siguiente
+    int Aux;        // guarda el dato, para que no se pierda
+     
+    actual = lista;     // empieza desde el primer elemento
+    while (actual->siguiente != NULL)   // hasta que actual llegue a la penultima posicion
+    {
+        siguiente = actual->siguiente;  // siguiente se ubica 1 posicion adelante de actual
+          
+        while (siguiente != NULL)       // hasta que siguiente llegue a la ultima posicion
+        {
+            if (actual->dato > siguiente->dato)     // posicion donde hay que hacer el cambio
+            {
+                Aux = siguiente->dato;              // guarda el dato que tiene siguiente
+                siguiente->dato = actual->dato;     // intercambia los datos
+                actual->dato = Aux;                 // intercambia los datos
+            }
+            siguiente = siguiente->siguiente;   // siguiente se adelanta 1 posicion                   
+        }    
+        actual = actual->siguiente; // actual se adelanta 1 posicion
+        siguiente = actual->siguiente;  // siguiente se adelanta 1 posicion de actual
+    }
+    cout << "La lista ha sido ordenada ascendentemente" << endl;
+
+    getchar();
+    getchar();
+}
+
+// procedimiento para ordenar (descendentemente)
+void ORDENAR_DESCENDENTE (Nodo *&lista)
+{
+    Nodo *actual;       // compara el dato en la posicion actual
+    Nodo *siguiente;    // compara el dato en la posicion siguiente
+    int Aux;            // guarda el dato, para que no se pierda
+     
+    actual = lista;
+    while (actual->siguiente != NULL)
+    {
+        siguiente = actual->siguiente;
+          
+        while (siguiente != NULL)
+        {
+            if (actual->dato < siguiente->dato)     // posicion donde hay que hacer el cambio
+            {
+                Aux = siguiente->dato;              // guarda el dato que tiene siguiente
+                siguiente->dato = actual->dato;     // intercambia los datos
+                actual->dato = Aux;                 // intercambia los datos
+            }  
+            siguiente = siguiente->siguiente;                    
+        }    
+        actual = actual->siguiente;
+        siguiente = actual->siguiente; 
+    }
+    cout << "La lista ha sido ordenada descendentemente" << endl;
+
+    getchar();
+    getchar();
+}
+
+// procedimiento para liberar la lista
+void LIBERAR (Nodo *&lista)
+{
+    // nodos
+    Nodo *temp;     // guarda los datos de lista, para luego irlos borrando pero sin perder el recorrido (siguiente)
+
+    if (lista != NULL)
+    {
+        while (lista != NULL)
+        {
+        temp = lista;                   // esto es lo que borra
+        lista = lista->siguiente;       // pasa al siguiente elemento
+        free(temp);
+        }
+        cout << "La lista ha sido liberada" << endl;
+    }
+    else
+        cout << "La lista esta vacia" << endl;
+
+    getchar();
+    getchar();
 }
 
 // procedimiento para insertar elemento en una posicion especifica
@@ -415,79 +572,18 @@ void INSERTAR_ESPECIFICO (Nodo *&lista)
             {
                 Aux->siguiente = Aux_2->siguiente;
                 Aux_2->siguiente = Aux;
+
+                getchar();
+                getchar();
+
                 return;
             }
             Aux_2 = Aux_2->siguiente;
         }
     }
     cout<< "Posicion no encontrada"<<endl;
-}
 
-// procedimiento para ordenar (ascendentemente)
-void ORDENAR_ASCENDENTE (Nodo *&lista)
-{
-    Nodo *actual, *siguiente;
-    int Aux;        // guarda el dato, para que no se pierda
-     
-    actual = lista;
-    while (actual->siguiente != NULL)
-    {
-        siguiente = actual->siguiente;
-          
-        while (siguiente != NULL)
-        {
-            if (actual->dato > siguiente->dato)
-            {
-                Aux = siguiente->dato;
-                siguiente->dato = actual->dato;
-                actual->dato = Aux;          
-            }
-            siguiente = siguiente->siguiente;                    
-        }    
-        actual = actual->siguiente;
-        siguiente = actual->siguiente; 
-    }
-    cout << "La lista ha sido ordenada" << endl << endl;
-}
-
-// procedimiento para ordenar (descendentemente)
-void ORDENAR_DESCENDENTE (Nodo *&lista)
-{
-    Nodo *actual, *siguiente;
-    int Aux;        // guarda el dato, para que no se pierda
-     
-    actual = lista;
-    while (actual->siguiente != NULL)
-    {
-        siguiente = actual->siguiente;
-          
-        while (siguiente != NULL)
-        {
-            if (actual->dato < siguiente->dato)
-            {
-                Aux = siguiente->dato;
-                siguiente->dato = actual->dato;
-                actual->dato = Aux;          
-            }
-            siguiente = siguiente->siguiente;                    
-        }    
-        actual = actual->siguiente;
-        siguiente = actual->siguiente; 
-    }
-    cout << "La lista ha sido ordenada" << endl << endl;
-}
-
-// procedimiento para liberar la lista
-void LIBERAR (Nodo *&lista)
-{
-    // nodos
-    Nodo *temp;     // guarda los datos de lista, para irlos borrando
-
-    while (lista != NULL)
-    {
-        temp = lista;                   // esto es lo que borra
-        lista = lista->siguiente;       // pasa al siguiente elemento
-        free(temp);
-    }
+    getchar();
+    getchar();
 }
 
